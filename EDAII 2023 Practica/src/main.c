@@ -1,13 +1,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "user.h"
 
-void show_main_menu(void);
+
+void show_main_menu(UsersList* users);
 
 
 int main()
 {
-	show_main_menu();
+	UsersList users;
+	init_users_list(&users);
+
+	show_main_menu(&users);
+
+	clear_users_list(&users);
 	return 0;
 }
 
@@ -52,7 +59,16 @@ void show_user_menu(void)
 	}
 }
 
-void show_main_menu(void)
+void create_new_user(UsersList* users)
+{
+	User* user = (User*) malloc(sizeof(User));
+
+	init_user(user);
+	show_fill_user_data_menu(user);
+	add_user_to_list(users, user);
+}
+
+void show_main_menu(UsersList* users)
 {
 	int option = -1;
 	while (option != 4)
@@ -66,8 +82,14 @@ void show_main_menu(void)
 		option = read_option();
 		switch (option)
 		{
-			case 1: break;
-			case 2: break;
+			case 1:
+				create_new_user(users);
+				break;
+
+			case 2:
+				show_all_users_in_list(users);
+				break;
+
 			case 3:
 				show_user_menu();
 				break;
