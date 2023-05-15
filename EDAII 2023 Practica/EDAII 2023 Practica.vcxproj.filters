@@ -21,9 +21,21 @@
     <ClCompile Include="src\user.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\user_stack.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\common.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\user.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\user_stack.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\common.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

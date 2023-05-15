@@ -1,8 +1,5 @@
 #include "user.h"
 
-#include <stdio.h>
-#include <string.h>
-
 
 void init_user(User* user)
 {
@@ -13,6 +10,21 @@ void init_user(User* user)
 	
 	for (int i = 0; i < PREFERENCES_COUNT; ++i)
 		user->preferences[i][0] = '\0';
+
+	init_users_list(&user->friend_requests);
+}
+
+User* create_user()
+{
+	User* user = (User*) malloc(sizeof(User));
+	init_user(user);
+	return user;
+}
+
+void destroy_user(User* user)
+{
+	clear_user_friend_requests(user);
+	free(user);
 }
 
 const char* get_user_username(const User* user) { return user->username; }
@@ -37,6 +49,16 @@ const char* get_user_preference(const User* user, size_t index) { return user->p
 void set_user_preference(User* user, size_t index, const char* preference) {
 	strcpy(user->preferences[index], preference);
 }
+
+void add_user_friend_request(User* user, User* friend_request)
+{
+	if (search_user_by_username(&user->friend_requests, friend_request->username) == NULL)
+		add_user_to_list(&user->friend_requests, friend_request);
+}
+
+const UsersList* get_user_friend_requests(const User* user) { return &user->friend_requests; }
+
+void clear_user_friend_requests(User* user) { clear_users_list(&user->friend_requests, false); }
 
 
 
@@ -92,6 +114,7 @@ void init_users_list(UsersList* list)
 	list->first = NULL;
 	list->last = NULL;
 	list->size = 0;
+	list->sorted = false;
 }
 
 void add_user_to_list(UsersList* list, User* user)
@@ -113,9 +136,10 @@ void add_user_to_list(UsersList* list, User* user)
 		list->last = node;
 	}
 	list->size++;
+	list->sorted = false;
 }
 
-void show_all_users_in_list(UsersList* list)
+void show_all_users_in_list(const UsersList* list)
 {
 	printf("All users:\n");
 	for (UsersListNode* node = list->first; node != NULL; node = node->next)
@@ -123,14 +147,74 @@ void show_all_users_in_list(UsersList* list)
 	printf("\n");
 }
 
-void clear_users_list(UsersList* list)
+void clear_users_list(UsersList* list, bool destroy_users)
 {
 	for (UsersListNode *node = list->first, *next; node != NULL; node = next)
 	{
 		next = node->next;
-		free(node->user);
+		if (destroy_users)
+			destroy_user(node->user);
 		free(node);
 	}
 
 	init_users_list(list);
+}
+
+size_t users_list_size(const UsersList* list) { return list->size; }
+
+bool users_list_empty(const UsersList* list) { return list->size == 0; }
+
+User* search_user_by_username(const UsersList* list, const char* username)
+{
+	for (UsersListNode* node = list->first; node != NULL; node = node->next)
+		if (strcmp(node->user->username, username) == 0)
+			return node->user;
+
+	return NULL;
+}
+
+
+
+User* read_user_from_csv_row(FILE* f)
+{
+	User* user = create_user();
+	int result = fscanf(f, "%s,%d,%s,%s,%s,%s,%s,%s,%s\n",
+		user->username,
+		&user->born_year,
+		user->email,
+		user->current_location,
+		user->preferences[0],
+		user->preferences[1],
+		user->preferences[2],
+		user->preferences[3],
+		user->preferences[4]
+	);
+
+	if (result != 9)
+	{
+		destroy_user(user);
+		printf("Users CSV: INVALID ROW\n");
+		return NULL;
+	}
+
+	return user;
+}
+
+void fill_users_list_from_csv(UsersList* list, const char* filename)
+{
+	FILE* f = fopen(filename, "r");
+	if (!f)
+	{
+		printf("CSV File '%s' not found.", filename);
+		return;
+	}
+
+	while (!feof(f))
+	{
+		User* user = read_user_from_csv_row(f);
+		if (user != NULL)
+			add_user_to_list(list, user);
+	}
+
+	fclose(f);
 }
