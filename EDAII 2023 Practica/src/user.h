@@ -34,6 +34,9 @@ typedef struct User {
 } User;
 
 
+
+// User FUNCTIONS /////////////////////////////////////////////////////////////////////////////
+
 void init_user(User* user);
 
 User* create_user();
@@ -63,7 +66,11 @@ void clear_user_friend_requests(User* user);
 
 void show_fill_user_data_menu(User* user);
 
+///////////////////////////////////////////////////////////////////////////////////////////////
 
+
+
+// UsersList FUNCTIONS ////////////////////////////////////////////////////////////////////////
 
 void init_users_list(UsersList* list);
 
@@ -83,6 +90,8 @@ User* search_user_by_username(const UsersList* list, const char* username);
 User* read_user_from_csv_row(FILE* f);
 
 void fill_users_list_from_csv(UsersList* list, const char* filename);
+
+///////////////////////////////////////////////////////////////////////////////////////////////
 
 
 #endif //__USER_H__

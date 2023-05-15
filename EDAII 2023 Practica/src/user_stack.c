@@ -8,7 +8,7 @@ void init_users_stack(UsersStack* stack)
 	stack->top = NULL;
 }
 
-bool users_stack_empty(const UsersStack* stack) { return stack->top != NULL; }
+bool users_stack_empty(const UsersStack* stack) { return stack->top == NULL; }
 
 void push_users_stack(UsersStack* stack, User* user)
 {
@@ -42,7 +42,7 @@ void clear_users_stack(UsersStack* stack)
 {
 	for (UsersStackNode* node = stack->top, *next; node != NULL; node = next)
 	{
-		next = node;
+		next = node->next;
 		free(node);
 	}
 

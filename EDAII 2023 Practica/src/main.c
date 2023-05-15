@@ -13,6 +13,8 @@ int main()
 	UsersList users;
 	init_users_list(&users);
 
+	fill_users_list_from_csv(&users, "users.csv");
+
 	show_main_menu(&users);
 
 	clear_users_list(&users, true);
@@ -38,7 +40,7 @@ void show_unknown_friends_menu(const UsersList* users, User* main_user)
 		if (user != NULL)
 		{
 			int option = -1;
-			while (option != 5)
+			while (option < 1 || option > 3)
 			{
 				printf("Do you want to send the user '%s' a friend request?:\n", get_user_username(user));
 				printf("    1) Yes\n");
@@ -48,7 +50,7 @@ void show_unknown_friends_menu(const UsersList* users, User* main_user)
 				option = read_option();
 				switch (option)
 				{
-					case 1: break;
+					case 1:
 						add_user_friend_request(main_user, user);
 						break;
 
@@ -128,7 +130,7 @@ void show_user_menu(UsersList* users)
 		return;
 
 	int option = -1;
-	while (option != 5)
+	while (option != 6)
 	{
 		printf("User '%s' menu:\n", get_user_username(selected_user));
 		printf("    1) Send friend requests\n");
@@ -141,11 +143,11 @@ void show_user_menu(UsersList* users)
 		option = read_option();
 		switch (option)
 		{
-			case 1: break;
+			case 1:
 				send_friend_request(users, selected_user);
 				break;
 
-			case 2: break;
+			case 2:
 				show_unknown_friends_menu(users, selected_user);
 				break;
 
@@ -192,7 +194,7 @@ void show_main_menu(UsersList* users)
 				break;
 
 			case 3:
-				show_user_menu();
+				show_user_menu(users);
 				break;
 
 			case 4: break;

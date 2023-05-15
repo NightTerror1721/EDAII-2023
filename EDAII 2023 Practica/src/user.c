@@ -178,22 +178,57 @@ User* search_user_by_username(const UsersList* list, const char* username)
 User* read_user_from_csv_row(FILE* f)
 {
 	User* user = create_user();
-	int result = fscanf(f, "%s,%d,%s,%s,%s,%s,%s,%s,%s\n",
-		user->username,
-		&user->born_year,
-		user->email,
-		user->current_location,
-		user->preferences[0],
-		user->preferences[1],
-		user->preferences[2],
-		user->preferences[3],
-		user->preferences[4]
-	);
 
-	if (result != 9)
+	char stop;
+
+	stop = read_csv_token(f, user->username);
+
+	if (stop != CSV_SEPARATOR)
 	{
 		destroy_user(user);
-		printf("Users CSV: INVALID ROW\n");
+		printf("Invalid CSV row.\n");
+		return NULL;
+	}
+	stop = read_csv_number(f, &user->born_year);
+
+	if (stop != CSV_SEPARATOR)
+	{
+		destroy_user(user);
+		printf("Invalid CSV row.\n");
+		return NULL;
+	}
+	stop = read_csv_token(f, user->email);
+
+	if (stop != CSV_SEPARATOR)
+	{
+		destroy_user(user);
+		printf("Invalid CSV row.\n");
+		return NULL;
+	}
+	stop = read_csv_token(f, user->current_location);
+
+	if (stop != CSV_SEPARATOR)
+	{
+		destroy_user(user);
+		printf("Invalid CSV row.\n");
+		return NULL;
+	}
+
+	for (int i = 0; i < PREFERENCES_COUNT; ++i)
+	{
+		if (stop != CSV_SEPARATOR)
+		{
+			destroy_user(user);
+			printf("Invalid CSV row.\n");
+			return NULL;
+		}
+		stop = read_csv_token(f, user->preferences[i]);
+	}
+
+	if (stop != CSV_ENDLINE)
+	{
+		destroy_user(user);
+		printf("Invalid CSV row 'endline'.\n");
 		return NULL;
 	}
 

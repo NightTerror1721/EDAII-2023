@@ -10,9 +10,43 @@ int random_int(int max)
 	static bool first_time = true;
 	if (first_time)
 	{
-		srand(time(NULL));
+		srand((unsigned int) time(NULL));
 		first_time = false;
 	}
 
 	return rand() % max;
+}
+
+char read_csv_token(FILE* f, char* buffer)
+{
+	int count = 0;
+	int ch;
+	while ((ch = fgetc(f)) != EOF)
+	{
+		if (ch == CSV_SEPARATOR || ch == CSV_ENDLINE)
+		{
+			buffer[count] = '\0';
+			return ch;
+		}
+		else
+		{
+			buffer[count] = ch;
+			count++;
+		}
+	}
+
+	return CSV_ENDLINE;
+}
+
+char read_csv_number(FILE* f, int* number)
+{
+	char buffer[50];
+	char stop = read_csv_token(f, buffer);
+	*number = atoi(buffer);
+
+	//La función atoi retorna 0 en caso de error//
+	if (*number == 0)
+		printf("[CSV number parser error]: Cannot concert '%s' to int.\n", buffer);
+
+	return stop;
 }
