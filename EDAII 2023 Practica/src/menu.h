@@ -9,6 +9,8 @@ void show_main_menu(UsersList* users);
 
 void show_user_menu(UsersList* users);
 
+void show_fill_user_data_menu(User* user);
+
 void show_unknown_friends_menu(User* current_user, const UsersList* users);
 
 

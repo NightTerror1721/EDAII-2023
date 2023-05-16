@@ -141,6 +141,7 @@
   <ItemGroup>
     <ClCompile Include="src\common.c" />
     <ClCompile Include="src\csv.c" />
+    <ClCompile Include="src\fill_user_data_menu.c" />
     <ClCompile Include="src\main.c" />
     <ClCompile Include="src\main_menu.c" />
     <ClCompile Include="src\unknown_friends_menu.c" />

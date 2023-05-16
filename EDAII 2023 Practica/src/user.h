@@ -46,9 +46,6 @@ User* remove_user_next_friend_request(User* user);
 void clear_user_friend_requests(User* user);
 
 
-void show_fill_user_data_menu(User* user);
-
-
 #endif //__USER_H__
 
 
