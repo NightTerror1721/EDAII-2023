@@ -4,6 +4,13 @@
 #include "user.h"
 #include "user_list.h"
 
+#define CSV_SEPARATOR ','
+#define CSV_ENDLINE '\n'
+
+
+char read_csv_token(FILE* f, char* buffer);
+char read_csv_number(FILE* f, int* number);
+
 
 User* read_user_from_csv_row(FILE* f);
 

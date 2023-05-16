@@ -17,36 +17,11 @@ int random_int(int max)
 	return rand() % max;
 }
 
-char read_csv_token(FILE* f, char* buffer)
+int read_option(void)
 {
-	int count = 0;
-	int ch;
-	while ((ch = fgetc(f)) != EOF)
-	{
-		if (ch == CSV_SEPARATOR || ch == CSV_ENDLINE)
-		{
-			buffer[count] = '\0';
-			return ch;
-		}
-		else
-		{
-			buffer[count] = ch;
-			count++;
-		}
-	}
+	int value;
+	if (scanf("%d", &value) != 1)
+		return -1;
 
-	return CSV_ENDLINE;
-}
-
-char read_csv_number(FILE* f, int* number)
-{
-	char buffer[50];
-	char stop = read_csv_token(f, buffer);
-	*number = atoi(buffer);
-
-	//La función atoi retorna 0 en caso de error//
-	if (*number == 0)
-		printf("[CSV number parser error]: Cannot concert '%s' to int.\n", buffer);
-
-	return stop;
+	return value;
 }
