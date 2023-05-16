@@ -1,8 +1,10 @@
 #ifndef __USER_STACK_H__
 #define __USER_STACK_H__
 
-#include "user.h"
+#include "common.h"
 
+
+typedef struct User User;
 
 typedef struct UsersStackNode {
 	User* user;
@@ -25,9 +27,6 @@ User* pop_users_stack(UsersStack* stack);
 User* get_users_stack_top(const UsersStack* stack);
 
 void clear_users_stack(UsersStack* stack);
-
-
-void fill_stack_with_n_random_users_from_list(UsersStack* stack, const UsersList* list, size_t n);
 
 
 #endif //__USER_STACK_H__

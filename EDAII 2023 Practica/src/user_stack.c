@@ -1,6 +1,5 @@
 #include "user_stack.h"
-
-#include <stdlib.h>
+#include "user.h"
 
 
 void init_users_stack(UsersStack* stack)
@@ -47,25 +46,4 @@ void clear_users_stack(UsersStack* stack)
 	}
 
 	init_users_stack(stack);
-}
-
-
-void fill_stack_with_n_random_users_from_list(UsersStack* stack, const UsersList* list, size_t n)
-{
-	n = MIN(n, users_list_size(list));
-	if (n <= 0)
-		return;
-
-	for (size_t i = 0; i < n; ++i)
-	{
-		size_t idx = (size_t) random_int(n);
-		UsersListNode* node = list->first;
-		while (idx > 0)
-		{
-			node = node->next;
-			idx--;
-		}
-
-		push_users_stack(stack, node->user);
-	}
 }

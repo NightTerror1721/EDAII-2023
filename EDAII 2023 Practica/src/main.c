@@ -3,6 +3,7 @@
 
 #include "user.h"
 #include "user_stack.h"
+#include "csv.h"
 
 
 void show_main_menu(UsersList* users);
@@ -24,6 +25,35 @@ int main()
 
 
 
+
+int read_option(void)
+{
+	int value;
+	if (scanf("%d", &value) != 1)
+		return -1;
+
+	return value;
+}
+
+void fill_stack_with_n_random_users_from_list(UsersStack* stack, const UsersList* list, size_t n)
+{
+	n = MIN(n, users_list_size(list));
+	if (n <= 0)
+		return;
+
+	for (size_t i = 0; i < n; ++i)
+	{
+		size_t idx = (size_t)random_int((int)n);
+		UsersListNode* node = list->first;
+		while (idx > 0)
+		{
+			node = node->next;
+			idx--;
+		}
+
+		push_users_stack(stack, node->user);
+	}
+}
 
 void show_unknown_friends_menu(const UsersList* users, User* main_user)
 {
@@ -74,15 +104,6 @@ void show_unknown_friends_menu(const UsersList* users, User* main_user)
 
 
 
-int read_option(void)
-{
-	int value;
-	if (scanf("%d", &value) != 1)
-		return -1;
-
-	return value;
-}
-
 User* select_user(const UsersList* users)
 {
 	char username[MAX_STRING_LEN];
@@ -109,14 +130,14 @@ void send_friend_request(const UsersList* users, User* main_user)
 	if (scanf("%s", username) != 1)
 	{
 		printf("Invalid username!\n\n");
-		return NULL;
+		return;
 	}
 
 	User* friend_request = search_user_by_username(users, username);
 	if (friend_request == NULL)
 	{
 		printf("Invalid username!\n\n");
-		return NULL;
+		return;
 	}
 	
 	add_user_friend_request(main_user, friend_request);
