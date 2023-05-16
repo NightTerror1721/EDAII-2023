@@ -114,6 +114,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <AdditionalIncludeDirectories>include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -130,6 +131,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <AdditionalIncludeDirectories>include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -152,13 +154,13 @@
     <ClCompile Include="src\user_stack.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\common.h" />
-    <ClInclude Include="src\csv.h" />
-    <ClInclude Include="src\menu.h" />
-    <ClInclude Include="src\user.h" />
-    <ClInclude Include="src\user_list.h" />
-    <ClInclude Include="src\user_queue.h" />
-    <ClInclude Include="src\user_stack.h" />
+    <ClInclude Include="include\common.h" />
+    <ClInclude Include="include\csv.h" />
+    <ClInclude Include="include\menu.h" />
+    <ClInclude Include="include\user.h" />
+    <ClInclude Include="include\user_list.h" />
+    <ClInclude Include="include\user_queue.h" />
+    <ClInclude Include="include\user_stack.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
