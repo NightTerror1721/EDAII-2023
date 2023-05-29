@@ -2,7 +2,10 @@
 #define __USER_H__
 
 #include "common.h"
+#include "user_list.h"
 #include "user_queue.h"
+#include "post.h"
+#include "trendings.h"
 
 #define MAX_STRING_LEN 256
 #define PREFERENCES_COUNT 5
@@ -14,7 +17,9 @@ typedef struct User {
 	char email[MAX_STRING_LEN];
 	char current_location[MAX_STRING_LEN];
 	char preferences[PREFERENCES_COUNT][MAX_STRING_LEN];
+	UsersList friends;
 	UsersQueue friend_requests;
+	PostsList posts;
 } User;
 
 
@@ -42,8 +47,12 @@ void set_user_preference(User* user, size_t index, const char* preference);
 void add_user_friend_request(User* user, User* friend_request);
 bool has_user_friend_requests(User* user);
 User* get_user_next_friend_request(User* user);
-User* remove_user_next_friend_request(User* user);
+void accept_user_next_friend_request(User* user);
+void decline_user_next_friend_request(User* user);
 void clear_user_friend_requests(User* user);
+
+void add_user_post(User* user, const char* post_text);
+const PostsList* get_user_timeline(const User* user);
 
 
 #endif //__USER_H__

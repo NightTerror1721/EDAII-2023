@@ -2,6 +2,19 @@
 #include "user.h"
 
 
+// UTILITY FUNCTIONS //
+
+static UsersListNode* find_node(const UsersList* list, const char* username)
+{
+	for (UsersListNode* node = list->first; node != NULL; node = node->next)
+		if (strcmp(node->user->username, username) == 0)
+			return node;
+
+	return NULL;
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 void init_users_list(UsersList* list)
 {
 	list->first = NULL;
@@ -28,6 +41,15 @@ void add_user_to_list(UsersList* list, User* user)
 		list->last = node;
 	}
 	list->size++;
+}
+
+bool remove_user_from_list(UsersList* list, const char* username, bool delete_user)
+{
+	UsersListNode* node = find_node(list, username);
+	if (node == NULL)
+		return false;
+
+
 }
 
 void show_all_users_in_list(const UsersList* list)
@@ -57,9 +79,6 @@ bool users_list_empty(const UsersList* list) { return list->size == 0; }
 
 User* search_user_by_username(const UsersList* list, const char* username)
 {
-	for (UsersListNode* node = list->first; node != NULL; node = node->next)
-		if (strcmp(node->user->username, username) == 0)
-			return node->user;
-
-	return NULL;
+	UsersListNode* node = find_node(list, username);
+	return node != NULL ? node->user : NULL;
 }

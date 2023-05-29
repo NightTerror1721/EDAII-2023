@@ -48,27 +48,39 @@
     <ClCompile Include="src\fill_user_data_menu.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\post.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\trendings.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\user.h">
+    <ClInclude Include="include\common.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\user_stack.h">
+    <ClInclude Include="include\csv.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\common.h">
+    <ClInclude Include="include\menu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\user_queue.h">
+    <ClInclude Include="include\post.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\user_list.h">
+    <ClInclude Include="include\user.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\csv.h">
+    <ClInclude Include="include\user_list.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\menu.h">
+    <ClInclude Include="include\user_queue.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\user_stack.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\trendings.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

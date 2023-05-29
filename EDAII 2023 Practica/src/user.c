@@ -11,7 +11,9 @@ void init_user(User* user)
 	for (int i = 0; i < PREFERENCES_COUNT; ++i)
 		user->preferences[i][0] = '\0';
 
+	init_users_list(&user->friends);
 	init_users_queue(&user->friend_requests);
+	init_posts_list(&user->posts);
 }
 
 User* create_user()
@@ -23,7 +25,9 @@ User* create_user()
 
 void destroy_user(User* user)
 {
-	clear_user_friend_requests(user);
+	clear_users_list(&user->friends, false);
+	clear_users_queue(&user->friend_requests);
+	clear_posts_list(&user->posts);
 	free(user);
 }
 
@@ -66,9 +70,25 @@ User* get_user_next_friend_request(User* user)
 	return get_users_queue_first(&user->friend_requests);
 }
 
-User* remove_user_next_friend_request(User* user)
+void accept_user_next_friend_request(User* user)
 {
-	return dequeue_user(&user->friend_requests);
+	User* request = dequeue_user(&user->friend_requests);
+	if (request != NULL)
+		add_user_to_list(&user->friends, request);
+}
+
+void decline_user_next_friend_request(User* user)
+{
+	dequeue_user(&user->friend_requests);
 }
 
 void clear_user_friend_requests(User* user) { clear_users_queue(&user->friend_requests); }
+
+
+void add_user_post(User* user, const char* post_text)
+{
+	post_text_on_list(&user->posts, post_text);
+	trendings_add_words_from_text(post_text);
+}
+
+const PostsList* get_user_timeline(const User* user) { return &user->posts; }

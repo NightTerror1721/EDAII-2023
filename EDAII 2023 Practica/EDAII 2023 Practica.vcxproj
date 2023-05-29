@@ -146,6 +146,8 @@
     <ClCompile Include="src\fill_user_data_menu.c" />
     <ClCompile Include="src\main.c" />
     <ClCompile Include="src\main_menu.c" />
+    <ClCompile Include="src\post.c" />
+    <ClCompile Include="src\trendings.c" />
     <ClCompile Include="src\unknown_friends_menu.c" />
     <ClCompile Include="src\user.c" />
     <ClCompile Include="src\user_list.c" />
@@ -157,6 +159,8 @@
     <ClInclude Include="include\common.h" />
     <ClInclude Include="include\csv.h" />
     <ClInclude Include="include\menu.h" />
+    <ClInclude Include="include\post.h" />
+    <ClInclude Include="include\trendings.h" />
     <ClInclude Include="include\user.h" />
     <ClInclude Include="include\user_list.h" />
     <ClInclude Include="include\user_queue.h" />

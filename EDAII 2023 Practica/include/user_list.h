@@ -23,6 +23,8 @@ void init_users_list(UsersList* list);
 
 void add_user_to_list(UsersList* list, User* user);
 
+bool remove_user_from_list(UsersList* list, const char* username, bool delete_user);
+
 void show_all_users_in_list(const UsersList* list);
 
 void clear_users_list(UsersList* list, bool destroy_users);

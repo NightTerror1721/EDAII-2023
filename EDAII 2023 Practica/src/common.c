@@ -23,5 +23,13 @@ int read_option(void)
 	if (scanf("%d", &value) != 1)
 		return -1;
 
+	consume_stdin();
+
 	return value;
+}
+
+void consume_stdin()
+{
+	char c;
+	while ((c = getchar()) && (c != '\n') && (c != EOF));
 }

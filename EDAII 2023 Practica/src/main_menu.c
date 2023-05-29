@@ -16,13 +16,14 @@ static void create_new_user(UsersList* users)
 void show_main_menu(UsersList* users)
 {
 	int option = -1;
-	while (option != 4)
+	while (option != 5)
 	{
 		printf("Main menu:\n");
 		printf("    1) Insert new user\n");
 		printf("    2) Show all users\n");
 		printf("    3) Operate as specific user\n");
-		printf("    4) Exit\n\n");
+		printf("    4) Show top 10 trending topics\n");
+		printf("    5) Exit\n\n");
 
 		option = read_option();
 		switch (option)
@@ -39,7 +40,11 @@ void show_main_menu(UsersList* users)
 			show_user_menu(users);
 			break;
 
-		case 4: break;
+		case 4:
+			trendings_print_top_10();
+			break;
+
+		case 5: break;
 
 		default:
 			printf("Invalid option.\n\n");

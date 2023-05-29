@@ -7,6 +7,8 @@
 
 int main()
 {
+	trendings_init();
+
 	UsersList users;
 	init_users_list(&users);
 
@@ -15,5 +17,6 @@ int main()
 	show_main_menu(&users);
 
 	clear_users_list(&users, true);
+	trendings_clear();
 	return 0;
 }
