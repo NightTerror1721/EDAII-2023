@@ -39,7 +39,7 @@ static void send_friend_request(const UsersList* users, User* main_user)
 		return;
 	}
 
-	add_user_friend_request(main_user, friend_request);
+	add_user_friend_request(friend_request, main_user);
 	printf("Friend request to user '%s' sent successfully.\n\n", username);
 }
 
@@ -50,7 +50,7 @@ static void manage_pending_requests(User* main_user)
 		User* req = get_user_next_friend_request(main_user);
 		
 		int option = -1;
-		while (option < 1 || option > 3)
+		while (option < 1 || option >= 3)
 		{
 			printf("The user '%s' has sent you a friend request. What do you want to do?\n", get_user_username(req));
 			printf("    1) Accept\n");
